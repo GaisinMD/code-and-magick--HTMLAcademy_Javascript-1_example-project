@@ -39,7 +39,9 @@ var generateTemplatesList = function (list) {
 };
 
 var showElement = function (element) {
-  document.querySelector(element).classList.remove('hidden');
+  if (document.querySelector(element)) {
+    document.querySelector(element).classList.remove('hidden');
+  }
 };
 
 showElement('.setup');
