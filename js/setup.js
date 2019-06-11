@@ -2,9 +2,8 @@
 
 var WIZARDS_QUANTITY = 4;
 
-var similarWizardTemplate = document.querySelector('#similar-wizard-template ').content.querySelector('.setup-similar-item');
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var setupSimilarList = document.querySelector('.setup-similar-list');
-var fragment = document.createDocumentFragment();
 
 var wizardFirstNamesList = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var wizardLastNamesList = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -32,10 +31,12 @@ var generateTemplate = function (template, item) {
   return templateElement;
 };
 
-var generateTemplatesList = function (list) {
+var generateTemplatesList = function (list, parentElement) {
+  var fragment = document.createDocumentFragment();
   for (var i = 0; i < list.length; i++) {
     fragment.appendChild(generateTemplate(similarWizardTemplate, list[i]));
   }
+  parentElement.appendChild(fragment);
 };
 
 var showElement = function (element) {
@@ -49,8 +50,6 @@ showElement('.setup');
 
 wizardsList = generateViews(wizardFirstNamesList, wizardLastNamesList, wizardCoatColorsList, wizardEyesColorsList, WIZARDS_QUANTITY);
 
-generateTemplatesList(wizardsList);
-
-setupSimilarList.appendChild(fragment);
+generateTemplatesList(wizardsList, setupSimilarList);
 
 showElement('.setup-similar');
