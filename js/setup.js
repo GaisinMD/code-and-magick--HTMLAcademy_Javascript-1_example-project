@@ -39,8 +39,9 @@ var generateTemplatesList = function (list) {
 };
 
 var showElement = function (element) {
-  if (document.querySelector(element)) {
-    document.querySelector(element).classList.remove('hidden');
+  var el = document.querySelector(element);
+  if (el) {
+    el.classList.remove('hidden');
   }
 };
 
