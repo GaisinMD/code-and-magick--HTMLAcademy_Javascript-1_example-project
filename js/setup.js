@@ -97,7 +97,6 @@ var changeColors = function (areaParrent, imageClass, inputName, colorsList, sty
   var color = colorsList[Math.floor(Math.random() * (colorsList.length))];
   area.style = styleChange + color;
   input.vaue = color;
-  console.log(input.vaue);
 };
 
 setupOpenButton.addEventListener('click', function () {
