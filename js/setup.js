@@ -3,12 +3,16 @@
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 var WIZARDS_QUANTITY = 4;
+var SETUP_START_COORD_Y = '80px';
+var SETUP_START_COORD_X = '932px';
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var setupSimilar = document.querySelector('.setup-similar');
 var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
+
 var setupOpenButton = document.querySelector('.setup-open');
 var setupWindow = document.querySelector('.setup');
+var dialogHandler = setupWindow.querySelector('.upload');
 var setupCloseButton = setupWindow.querySelector('.setup-close');
 var userNameInput = setupWindow.querySelector('.setup-user-name');
 var wizardCoat = setupWindow.querySelector('.wizard-coat');
@@ -64,6 +68,7 @@ var generateWizards = function (list, parentElement) {
 var showElement = function (element) {
   if (element.classList.contains('hidden')) {
     element.classList.remove('hidden');
+    element.style = 'top: ' + SETUP_START_COORD_Y + '; left: ' + SETUP_START_COORD_X;
   }
 };
 
@@ -96,7 +101,7 @@ var changeColors = function (areaParrent, imageClass, inputName, colorsList, sty
   var input = document.getElementsByName(inputName);
   var color = colorsList[Math.floor(Math.random() * (colorsList.length))];
   area.style = styleChange + color;
-  input.vaue = color;
+  input[0].value = color;
 };
 
 setupOpenButton.addEventListener('click', function () {
@@ -131,4 +136,51 @@ wizardEyes.addEventListener('click', function () {
 
 fireball.addEventListener('click', function () {
   changeColors(setupWindow, fireballClass, fireballInputName, wizardFireballColorsList, fireballVariableStyleChange);
+});
+
+dialogHandler.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var isDragged = false;
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    isDragged = true;
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    setupWindow.style.top = (setupWindow.offsetTop - shift.y) + 'px';
+    setupWindow.style.left = (setupWindow.offsetLeft - shift.x) + 'px';
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+
+    if (isDragged) {
+      var onClickPreventDefault = function (clickEvt) {
+        clickEvt.preventDefault();
+        dialogHandler.removeEventListener('click', onClickPreventDefault);
+      };
+      dialogHandler.addEventListener('click', onClickPreventDefault);
+    }
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 });
