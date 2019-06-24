@@ -23,7 +23,7 @@ window.backend = (function () {
       xhr.send();
     },
 
-    /*save: function (data, onLoad, onError) {
+    /* save: function (data, onLoad, onError) {
       var URL = 'https://js.dump.academy/code-and-magick';
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
@@ -38,7 +38,7 @@ window.backend = (function () {
 
       xhr.open('POST', URL);
       xhr.send(data);
-    }*/
+    } */
 
   };
 
