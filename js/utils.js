@@ -4,6 +4,10 @@
 window.utils = (function () {
 
   return {
+    // константа
+    ESC_KEYCODE: 27,
+    ENTER_KEYCODE: 13,
+
     // нахождение максимального значения в массиве
     getMaxElement: function (arr) {
       var maxElement = 0;
@@ -59,7 +63,39 @@ window.utils = (function () {
 
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
+    },
+
+    // popup ошибки
+    onErrormessage: function (code) {
+      var popup = document.querySelector('.error-message');
+      var errorCode = popup.querySelector('.error-message-code');
+      var button = popup.querySelector('.error-message-button');
+
+      var hidePopup = function (element) {
+        if (!element.classList.contains('hidden')) {
+          element.classList.add('hidden');
+          document.removeEventListener('keydown', onEscPress);
+        }
+      };
+
+      var onEscPress = function (evt) {
+        if (evt.keyCode === window.utils.ESC_KEYCODE) {
+          hidePopup(popup);
+        }
+      };
+
+      button.addEventListener('click', function () {
+        hidePopup(popup);
+      });
+
+      if (popup.classList.contains('hidden')) {
+        popup.classList.remove('hidden');
+        document.addEventListener('keydown', onEscPress);
+      }
+
+      errorCode.textContent = code;
     }
+
   };
 
 })();

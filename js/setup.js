@@ -1,10 +1,9 @@
-// Зависимости: utils.js, list-wizards.js, change-view-wizard.js
+// Зависимости: utils.js, list-wizards.js, change-view-wizard.js, backend.js
 // Выполняемые задачи: Создание окна персонажа (setup) и работа с ним
+
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
   var SETUP_START_COORD_Y = '80px';
   var SETUP_START_COORD_X = '932px';
 
@@ -51,21 +50,21 @@
   };
 
   var onPopupEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && (evt.target !== userNameInput)) {
+    if (evt.keyCode === window.utils.ESC_KEYCODE && (evt.target !== userNameInput)) {
       hidePopup(setupWindow);
     }
   };
 
   setupOpenButton.addEventListener('click', function () {
     showPopUp(setupWindow);
-    window.generate.setupShowWizards();
+    window.backend.load(window.generate.generateWizards, window.generate.generateWizards);
     showElement(setupSimilar);
   });
 
   setupOpenButton.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.utils.ENTER_KEYCODE) {
       showPopUp(setupWindow);
-      window.generate.showSetupWizards();
+      window.backend.load(window.generate.generateWizards, window.utils.onErrormessage);
       showElement(setupSimilar);
     }
   });
@@ -75,7 +74,7 @@
   });
 
   setupCloseButton.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.utils.ENTER_KEYCODE) {
       hidePopup(setupWindow);
     }
   });
