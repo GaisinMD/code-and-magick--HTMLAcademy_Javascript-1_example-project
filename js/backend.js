@@ -28,8 +28,6 @@ window.backend = (function () {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
-      console.log(xhr);
-
       xhr.addEventListener('load', function () {
         if (xhr.status === 200) {
           onLoad(xhr.response);
