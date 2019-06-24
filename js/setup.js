@@ -57,7 +57,7 @@
   };
 
   var hidePopupOnLoadData = function (responce) {
-    if (responce === 200) {
+    if (responce) {
       hidePopup(setupWindow);
     }
   };
@@ -106,4 +106,5 @@
     evt.preventDefault();
     window.backend.save(new FormData(formWizard), hidePopupOnLoadData, window.utils.onErrormessage);
   });
+
 })();

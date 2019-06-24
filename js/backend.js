@@ -7,10 +7,9 @@ window.backend = (function () {
   return {
     load: function (onLoad, onError) {
       var xhr = new XMLHttpRequest();
-      var url = 'https://js.dump.academy/code-and-magick/dat';
+      var url = 'https://js.dump.academy/code-and-magick/data';
 
       xhr.responseType = 'json';
-      console.log(onError);
 
       xhr.addEventListener('load', function () {
         if (xhr.status === 200) {
@@ -28,6 +27,8 @@ window.backend = (function () {
       var URL = 'https://js.dump.academy/code-and-magick';
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
+
+      console.log(xhr);
 
       xhr.addEventListener('load', function () {
         if (xhr.status === 200) {
