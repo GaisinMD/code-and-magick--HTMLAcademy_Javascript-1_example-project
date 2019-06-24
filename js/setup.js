@@ -11,7 +11,7 @@
 
   var setupOpenButton = document.querySelector('.setup-open');
   var setupWindow = document.querySelector('.setup');
-  // var formWizard = setupWindow.querySelector('.setup-wizard-form');
+  var formWizard = setupWindow.querySelector('.setup-wizard-form');
   var dialogHandler = setupWindow.querySelector('.upload');
   var setupCloseButton = setupWindow.querySelector('.setup-close');
   var userNameInput = setupWindow.querySelector('.setup-user-name');
@@ -56,15 +56,15 @@
     }
   };
 
-  /* var hidePopupOnLoadData = function (responce) {
+  var hidePopupOnLoadData = function (responce) {
     if (responce === 200) {
       hidePopup(setupWindow);
     }
-  }; */
+  };
 
   setupOpenButton.addEventListener('click', function () {
     showPopUp(setupWindow);
-    window.backend.load(window.generate.generateWizards, window.generate.generateWizards);
+    window.backend.load(window.generate.generateWizards, window.utils.onErrormessage);
     showElement(setupSimilar);
   });
 
@@ -102,8 +102,8 @@
     window.utils.moveWindow(evt, setupWindow, dialogHandler);
   });
 
-  /* formWizard.addEventListener('submit', function (evt) {
+  formWizard.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(formWizard), hidePopupOnLoadData, window.utils.onErrormessage);
-  }); */
+  });
 })();
