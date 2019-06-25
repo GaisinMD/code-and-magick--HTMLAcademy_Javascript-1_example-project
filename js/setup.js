@@ -6,6 +6,8 @@
 (function () {
   var SETUP_START_COORD_Y = '80px';
   var SETUP_START_COORD_X = '932px';
+  var URL_GET = 'https://js.dump.academy/code-and-magick/data';
+  var URL_SEND = 'https://js.dump.academy/code-and-magick';
 
   var setupSimilar = document.querySelector('.setup-similar');
 
@@ -64,14 +66,14 @@
 
   setupOpenButton.addEventListener('click', function () {
     showPopUp(setupWindow);
-    window.backend.load(window.generate.generateWizards, window.utils.onErrormessage);
+    window.backend.load(URL_GET, window.generate.generateWizards, window.utils.onErrormessage);
     showElement(setupSimilar);
   });
 
   setupOpenButton.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.utils.ENTER_KEYCODE) {
       showPopUp(setupWindow);
-      window.backend.load(window.generate.generateWizards, window.utils.onErrormessage);
+      window.backend.load(URL_GET, window.generate.generateWizards, window.utils.onErrormessage);
       showElement(setupSimilar);
     }
   });
@@ -104,7 +106,7 @@
 
   formWizard.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(formWizard), hidePopupOnLoadData, window.utils.onErrormessage);
+    window.backend.save(URL_SEND, new FormData(formWizard), hidePopupOnLoadData, window.utils.onErrormessage);
   });
 
 })();

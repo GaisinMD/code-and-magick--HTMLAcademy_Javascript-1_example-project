@@ -3,16 +3,16 @@
 'use strict';
 
 window.backend = (function () {
+  var CODE_SUCCES = 200;
 
   return {
-    load: function (onLoad, onError) {
+    load: function (url, onLoad, onError) {
       var xhr = new XMLHttpRequest();
-      var url = 'https://js.dump.academy/code-and-magick/data';
 
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+        if (xhr.status === CODE_SUCCES) {
           onLoad(xhr.response);
         } else {
           onError(xhr.status);
@@ -23,20 +23,19 @@ window.backend = (function () {
       xhr.send();
     },
 
-    save: function (data, onLoad, onError) {
-      var URL = 'https://js.dump.academy/code-and-magick';
+    save: function (url, data, onLoad, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+        if (xhr.status === CODE_SUCCES) {
           onLoad(xhr.response);
         } else {
           onError(xhr.status);
         }
       });
 
-      xhr.open('POST', URL);
+      xhr.open('POST', url);
       xhr.send(data);
     }
 
