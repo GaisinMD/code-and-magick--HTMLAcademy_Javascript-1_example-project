@@ -1,17 +1,19 @@
-// Зависимости: utils.js, list-wizards.js, change-view-wizard.js
+// Зависимости: utils.js, list-wizards.js, change-view-wizard.js, backend.js
 // Выполняемые задачи: Создание окна персонажа (setup) и работа с ним
+
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
   var SETUP_START_COORD_Y = '80px';
   var SETUP_START_COORD_X = '932px';
+  var URL_GET = 'https://js.dump.academy/code-and-magick/data';
+  var URL_SEND = 'https://js.dump.academy/code-and-magick';
 
   var setupSimilar = document.querySelector('.setup-similar');
 
   var setupOpenButton = document.querySelector('.setup-open');
   var setupWindow = document.querySelector('.setup');
+  var formWizard = setupWindow.querySelector('.setup-wizard-form');
   var dialogHandler = setupWindow.querySelector('.upload');
   var setupCloseButton = setupWindow.querySelector('.setup-close');
   var userNameInput = setupWindow.querySelector('.setup-user-name');
@@ -51,21 +53,27 @@
   };
 
   var onPopupEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && (evt.target !== userNameInput)) {
+    if (evt.keyCode === window.utils.ESC_KEYCODE && (evt.target !== userNameInput)) {
+      hidePopup(setupWindow);
+    }
+  };
+
+  var hidePopupOnLoadData = function (responce) {
+    if (responce) {
       hidePopup(setupWindow);
     }
   };
 
   setupOpenButton.addEventListener('click', function () {
     showPopUp(setupWindow);
-    window.generate.setupShowWizards();
+    window.backend.load(URL_GET, window.generate.generateWizards, window.utils.onErrormessage);
     showElement(setupSimilar);
   });
 
   setupOpenButton.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.utils.ENTER_KEYCODE) {
       showPopUp(setupWindow);
-      window.generate.showSetupWizards();
+      window.backend.load(URL_GET, window.generate.generateWizards, window.utils.onErrormessage);
       showElement(setupSimilar);
     }
   });
@@ -75,7 +83,7 @@
   });
 
   setupCloseButton.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.utils.ENTER_KEYCODE) {
       hidePopup(setupWindow);
     }
   });
@@ -95,4 +103,10 @@
   dialogHandler.addEventListener('mousedown', function (evt) {
     window.utils.moveWindow(evt, setupWindow, dialogHandler);
   });
+
+  formWizard.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(URL_SEND, new FormData(formWizard), hidePopupOnLoadData, window.utils.onErrormessage);
+  });
+
 })();

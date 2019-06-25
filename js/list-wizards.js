@@ -1,4 +1,6 @@
 // Выполняемые задачи: Генерация списка волшебников, изменение внешнего вида волшебника
+// Зависимости:
+
 'use strict';
 
 window.generate = (function () {
@@ -7,20 +9,14 @@ window.generate = (function () {
   var setupSimilarList = document.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-  var wizardFirstNamesList = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var wizardLastNamesList = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-  var wizardCoatColorsList = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-  var wizardEyesColorsList = ['black', 'red', 'blue', 'yellow', 'green'];
-
-  var wizardsList = [];
-
-  var generateViews = function (firstNamesList, lastNamesList, coatColorsList, eyesColorsList, count) {
+  var getWizards = function (list) {
+    var count = WIZARDS_QUANTITY;
     var charsList = [];
     for (var i = 0; i < count; i++) {
       var view = {};
-      view.name = firstNamesList[Math.floor(Math.random() * (firstNamesList.length))] + ' ' + lastNamesList[Math.floor(Math.random() * (lastNamesList.length))];
-      view.coatColor = coatColorsList[Math.floor(Math.random() * (coatColorsList.length))];
-      view.eyesColor = eyesColorsList[Math.floor(Math.random() * (eyesColorsList.length))];
+      view.name = list[i].name;
+      view.coatColor = list[i].colorCoat;
+      view.eyesColor = list[i].colorEyes;
       charsList.push(view);
     }
     return charsList;
@@ -34,22 +30,21 @@ window.generate = (function () {
     return templateElement;
   };
 
-  var generateWizards = function (list, parentElement) {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < list.length; i++) {
-      fragment.appendChild(generateTemplate(similarWizardTemplate, list[i]));
-    }
-    while (parentElement.firstChild) {
-      parentElement.removeChild(parentElement.firstChild);
-    }
-    parentElement.appendChild(fragment);
-  };
-
   return {
-    setupShowWizards: function () {
-      wizardsList = generateViews(wizardFirstNamesList, wizardLastNamesList, wizardCoatColorsList, wizardEyesColorsList, WIZARDS_QUANTITY);
-      generateWizards(wizardsList, setupSimilarList);
-    },
+
+    generateWizards: function (list) {
+      var parentElement = setupSimilarList;
+      var wizardsList = getWizards(list);
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < wizardsList.length; i++) {
+        fragment.appendChild(generateTemplate(similarWizardTemplate, wizardsList[i]));
+      }
+      while (parentElement.firstChild) {
+        parentElement.removeChild(parentElement.firstChild);
+      }
+      parentElement.appendChild(fragment);
+    }
 
   };
+
 })();
