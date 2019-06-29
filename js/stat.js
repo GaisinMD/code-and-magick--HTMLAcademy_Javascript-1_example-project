@@ -3,7 +3,10 @@
 'use strict';
 
 (function () {
-  var CLOUD_POSITION_X = 100; // позиция окна результатов по Х
+  var cloud = {
+    POSITION_X: 100, // позиция окна результатов по Х
+  };
+
   var CLOUD_POSITION_Y = 10; // позиция окна результатов по Y
   var CLOUD_WIDTH = 420; // ширина окна результатов
   var CLOUD_HEIGHT = 270; // высота окна результатов
@@ -51,15 +54,15 @@
   window.renderStatistics = function (ctx, names, times) {
     var maxResult = window.utils.getMaxElement(times);
 
-    renderCloud(ctx, CLOUD_POSITION_X + CLOUD_SHADOW_SHIFT, CLOUD_POSITION_Y + CLOUD_SHADOW_SHIFT, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_SHADOW_COLOR); // тень облака
-    renderCloud(ctx, CLOUD_POSITION_X, CLOUD_POSITION_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_COLOR); // облако
-    renderText(ctx, 'Ура вы победили!', CLOUD_POSITION_X + GAP_TEXT_X, CLOUD_POSITION_Y + GAP_TEXT_Y, FONT, FONT_SIZE, FONT_COLOR); // Поздравление
-    renderText(ctx, 'Список результатов:', CLOUD_POSITION_X + GAP_TEXT_X, CLOUD_POSITION_Y + 3 * GAP_TEXT_Y, FONT, FONT_SIZE, FONT_COLOR); // Заголовок статистики
+    renderCloud(ctx, cloud.POSITION_X + CLOUD_SHADOW_SHIFT, CLOUD_POSITION_Y + CLOUD_SHADOW_SHIFT, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_SHADOW_COLOR); // тень облака
+    renderCloud(ctx, cloud.POSITION_X, CLOUD_POSITION_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_COLOR); // облако
+    renderText(ctx, 'Ура вы победили!', cloud.POSITION_X + GAP_TEXT_X, CLOUD_POSITION_Y + GAP_TEXT_Y, FONT, FONT_SIZE, FONT_COLOR); // Поздравление
+    renderText(ctx, 'Список результатов:', cloud.POSITION_X + GAP_TEXT_X, CLOUD_POSITION_Y + 3 * GAP_TEXT_Y, FONT, FONT_SIZE, FONT_COLOR); // Заголовок статистики
 
     // цикл построения гистаграммы
     for (var i = 0; i < names.length; i++) {
       var playerResult = Math.round(times[i] * GISTOGRAMM_HEIGHT / maxResult);
-      renderGistagrammColumn(ctx, names[i], playerResult, GISTOGRAMM_COLUMN_WIDTH, CLOUD_POSITION_X + GISTOGRAMM_COLUMNS_DISTANCE + GISTOGRAMM_COLUMNS_DISTANCE * (i * 2), GISTOGRAMM_NAMES_POSITION_Y, FONT, FONT_SIZE, FONT_COLOR); // рендер колонки с именем
+      renderGistagrammColumn(ctx, names[i], playerResult, GISTOGRAMM_COLUMN_WIDTH, cloud.POSITION_X + GISTOGRAMM_COLUMNS_DISTANCE + GISTOGRAMM_COLUMNS_DISTANCE * (i * 2), GISTOGRAMM_NAMES_POSITION_Y, FONT, FONT_SIZE, FONT_COLOR); // рендер колонки с именем
     }
   };
 })();
