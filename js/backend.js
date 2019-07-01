@@ -14,6 +14,7 @@ window.backend = (function () {
 
       xhr.addEventListener('load', function () {
         if (xhr.status === CODE_SUCCES) {
+          window.sortModule.wizards = xhr.response;
           onLoad(xhr.response);
         } else {
           onError(xhr.status);

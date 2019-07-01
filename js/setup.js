@@ -38,7 +38,9 @@
     FIREBALL_CLASS: '.setup-fireball-wrap',
     FIREBALL_INPUT_NAME: 'fireball-color',
 
+    COAT_COLOR: 'rgb(101, 137, 164)',
     COAT_COLORS_LIST: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
+    EYES_COLOR: 'black',
     EYES_COLORS_LIST: ['black', 'red', 'blue', 'yellow', 'green'],
     FIREBALL_COLORS_LIST: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848']
   };
@@ -102,11 +104,13 @@
   });
 
   Wizard.COAT.addEventListener('click', function () {
-    window.wizardChange.changeColors(setupWindow, Wizard.COAT_CLASS, Wizard.COAT_INPUT_NAME, Wizard.COAT_COLORS_LIST, wizardVariableStyleChange);
+    Wizard.COAT_COLOR = window.wizardChange.changeColors(setupWindow, Wizard.COAT_CLASS, Wizard.COAT_INPUT_NAME, Wizard.COAT_COLORS_LIST, wizardVariableStyleChange);
+    window.generate.generateWizards(window.sortModule.sortWizards(window.sortModule.wizards, Wizard.COAT_COLOR, Wizard.EYES_COLOR));
   });
 
   Wizard.EYES.addEventListener('click', function () {
-    window.wizardChange.changeColors(setupWindow, Wizard.EYES_CLASS, Wizard.EYES_INPUT_NAME, Wizard.EYES_COLORS_LIST, wizardVariableStyleChange);
+    Wizard.EYES_COLOR = window.wizardChange.changeColors(setupWindow, Wizard.EYES_CLASS, Wizard.EYES_INPUT_NAME, Wizard.EYES_COLORS_LIST, wizardVariableStyleChange);
+    window.generate.generateWizards(window.sortModule.sortWizards(window.sortModule.wizards, Wizard.COAT_COLOR, Wizard.EYES_COLOR));
   });
 
   Wizard.FIREBALL.addEventListener('click', function () {

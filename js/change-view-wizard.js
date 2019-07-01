@@ -11,6 +11,7 @@ window.wizardChange = (function () {
       var color = colorsList[Math.floor(Math.random() * (colorsList.length))];
       area.style = styleChange + color;
       input[0].value = color;
+      return color;
     }
 
   };
