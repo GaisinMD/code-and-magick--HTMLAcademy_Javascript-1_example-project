@@ -5,6 +5,7 @@
 window.backend = (function () {
   var CODE_SUCCES = 200;
 
+
   return {
 
     load: function (url, onLoad, onError) {
@@ -15,7 +16,7 @@ window.backend = (function () {
       xhr.addEventListener('load', function () {
         if (xhr.status === CODE_SUCCES) {
           window.sortModule.wizards = xhr.response;
-          onLoad(xhr.response);
+          onLoad(window.sortModule.wizards);
         } else {
           onError(xhr.status);
         }

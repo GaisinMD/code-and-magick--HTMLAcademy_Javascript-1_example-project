@@ -17,6 +17,7 @@ window.sortModule = (function () {
   };
 
   return {
+    wizards: [],
 
     sortWizards: function (wizardsList, coatColor, eyesColor) {
 
