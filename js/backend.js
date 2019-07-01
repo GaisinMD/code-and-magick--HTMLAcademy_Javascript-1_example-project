@@ -6,6 +6,7 @@ window.backend = (function () {
   var CODE_SUCCES = 200;
 
   return {
+
     load: function (url, onLoad, onError) {
       var xhr = new XMLHttpRequest();
 

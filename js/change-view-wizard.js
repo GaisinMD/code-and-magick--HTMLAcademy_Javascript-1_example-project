@@ -1,7 +1,7 @@
 // Выполняемые задачи: Изменение внешнего вида волшебника
 'use strict';
 
-window.wizard = (function () {
+window.wizardChange = (function () {
 
   return {
 
@@ -12,5 +12,6 @@ window.wizard = (function () {
       area.style = styleChange + color;
       input[0].value = color;
     }
+
   };
 })();

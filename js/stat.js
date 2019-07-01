@@ -3,26 +3,33 @@
 'use strict';
 
 (function () {
-  var cloud = {
+  var Cloud = {
     POSITION_X: 100, // позиция окна результатов по Х
+    POSITION_Y: 10, // позиция окна результатов по Y
+    WIDTH: 420, // ширина окна результатов
+    HEIGHT: 270, // высота окна результатов
+    COLOR: 'rgba(255, 255, 255, 1)', // цвет окна результатов
+    SHADOW_COLOR: 'rgba(0, 0, 0, 0.7)', // цвет тени
+    SHADOW_SHIFT: 10 // величина смещения тени по Х и Y относительно окна результатов
   };
 
-  var CLOUD_POSITION_Y = 10; // позиция окна результатов по Y
-  var CLOUD_WIDTH = 420; // ширина окна результатов
-  var CLOUD_HEIGHT = 270; // высота окна результатов
-  var CLOUD_COLOR = 'rgba(255, 255, 255, 1)'; // цвет окна результатов
-  var CLOUD_SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)'; // цвет тени
-  var CLOUD_SHADOW_SHIFT = 10; // величина смещения тени по Х и Y относительно окна результатов
-  var FONT = 'PT Mono'; // шрифт
-  var FONT_SIZE = '16px'; // размар шрифта
-  var FONT_COLOR = 'rgba(0, 0, 0, 1)'; // цвет шрифта
-  var GAP_TEXT_X = 70; // смещение текста по оси Х относительно внешнего края окна результатов
-  var GAP_TEXT_Y = 10; //  смещение текста по оси Y относительно внешнего края окна результатов, также коэффицент вертикального смещения надписей относительно друг друга
-  var GISTOGRAMM_HEIGHT = 150; // максимальная высота гистограммы
-  var GISTOGRAMM_COLUMN_WIDTH = 40; // ширина колонки гистаграммы
-  var GISTOGRAMM_COLUMNS_DISTANCE = 50; // смещение колонки по оси X относительно внешнего края окна результатов, также коэффицент горизонтального смещения колонок относительно друг друга
-  var GISTOGRAMM_NAMES_POSITION_Y = 250; // позиция по оси Y подписей колонок, также якорь от которого идут расчеты в функции renderGistagrammColumn
+  var Font = {
+    TYPE: 'PT Mono', // шрифт
+    SIZE: '16px', // размар шрифта
+    COLOR: 'rgba(0, 0, 0, 1)' // цвет шрифта
+  };
 
+  var Text = {
+    GAP_X: 70, // смещение текста по оси Х относительно внешнего края окна результатов
+    GAP_Y: 10 //  смещение текста по оси Y относительно внешнего края окна результатов, также коэффицент вертикального смещения надписей относительно друг друга
+  };
+
+  var Gistogramm = {
+    HEIGHT: 150, // максимальная высота гистограммы
+    COLUMN_WIDTH: 40, // ширина колонки гистаграммы
+    COLUMNS_DISTANCE: 50, // смещение колонки по оси X относительно внешнего края окна результатов, также коэффицент горизонтального смещения колонок относительно друг друга
+    NAMES_POSITION_Y: 250 // позиция по оси Y подписей колонок, также якорь от которого идут расчеты в функции renderGistagrammColumn
+  };
 
   var renderCloud = function (ctx, positionX, positionY, width, height, colorFill) {
     ctx.fillStyle = colorFill;
@@ -54,15 +61,15 @@
   window.renderStatistics = function (ctx, names, times) {
     var maxResult = window.utils.getMaxElement(times);
 
-    renderCloud(ctx, cloud.POSITION_X + CLOUD_SHADOW_SHIFT, CLOUD_POSITION_Y + CLOUD_SHADOW_SHIFT, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_SHADOW_COLOR); // тень облака
-    renderCloud(ctx, cloud.POSITION_X, CLOUD_POSITION_Y, CLOUD_WIDTH, CLOUD_HEIGHT, CLOUD_COLOR); // облако
-    renderText(ctx, 'Ура вы победили!', cloud.POSITION_X + GAP_TEXT_X, CLOUD_POSITION_Y + GAP_TEXT_Y, FONT, FONT_SIZE, FONT_COLOR); // Поздравление
-    renderText(ctx, 'Список результатов:', cloud.POSITION_X + GAP_TEXT_X, CLOUD_POSITION_Y + 3 * GAP_TEXT_Y, FONT, FONT_SIZE, FONT_COLOR); // Заголовок статистики
+    renderCloud(ctx, Cloud.POSITION_X + Cloud.SHADOW_SHIFT, Cloud.POSITION_Y + Cloud.SHADOW_SHIFT, Cloud.WIDTH, Cloud.HEIGHT, Cloud.SHADOW_COLOR); // тень облака
+    renderCloud(ctx, Cloud.POSITION_X, Cloud.POSITION_Y, Cloud.WIDTH, Cloud.HEIGHT, Cloud.COLOR); // облако
+    renderText(ctx, 'Ура вы победили!', Cloud.POSITION_X + Text.GAP_X, Cloud.POSITION_Y + Text.GAP_Y, Font.TYPE, Font.SIZE, Font.COLOR); // Поздравление
+    renderText(ctx, 'Список результатов:', Cloud.POSITION_X + Text.GAP_X, Cloud.POSITION_Y + 3 * Text.GAP_Y, Font.TYPE, Font.SIZE, Font.COLOR); // Заголовок статистики
 
     // цикл построения гистаграммы
     for (var i = 0; i < names.length; i++) {
-      var playerResult = Math.round(times[i] * GISTOGRAMM_HEIGHT / maxResult);
-      renderGistagrammColumn(ctx, names[i], playerResult, GISTOGRAMM_COLUMN_WIDTH, cloud.POSITION_X + GISTOGRAMM_COLUMNS_DISTANCE + GISTOGRAMM_COLUMNS_DISTANCE * (i * 2), GISTOGRAMM_NAMES_POSITION_Y, FONT, FONT_SIZE, FONT_COLOR); // рендер колонки с именем
+      var playerResult = Math.round(times[i] * Gistogramm.HEIGHT / maxResult);
+      renderGistagrammColumn(ctx, names[i], playerResult, Gistogramm.COLUMN_WIDTH, Cloud.POSITION_X + Gistogramm.COLUMNS_DISTANCE + Gistogramm.COLUMNS_DISTANCE * (i * 2), Gistogramm.NAMES_POSITION_Y, Font.TYPE, Font.SIZE, Font.COLOR); // рендер колонки с именем
     }
   };
 })();
