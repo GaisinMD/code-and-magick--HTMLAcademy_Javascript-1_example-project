@@ -1,4 +1,5 @@
-// Выполняемые задачи: Модулm сортировки списка волшебников
+// Выполняемые задачи: Модуль сортировки списка волшебников
+// Зависимости:
 
 'use strict';
 
@@ -17,7 +18,6 @@ window.sortModule = (function () {
   };
 
   return {
-    wizards: [],
 
     sortWizards: function (wizardsList, coatColor, eyesColor) {
 

@@ -1,5 +1,5 @@
-// Зависимости: utils.js, list-wizards.js, change-view-wizard.js, backend.js, sorting-wizards.js;
 // Выполняемые задачи: Создание окна персонажа (setup) и работа с ним
+// Зависимости: utils.js, backend.js, list-wizards.js, change-view-wizard.js
 
 'use strict';
 

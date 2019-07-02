@@ -1,4 +1,5 @@
 // Выполняемые задачи: Модули загрузки и отправки данных
+// Зависимости: global-var-const.js
 
 'use strict';
 
@@ -15,8 +16,8 @@ window.backend = (function () {
 
       xhr.addEventListener('load', function () {
         if (xhr.status === CODE_SUCCES) {
-          window.sortModule.wizards = xhr.response;
-          onLoad(window.sortModule.wizards);
+          window.globalVarConst.wizards = xhr.response;
+          onLoad(window.globalVarConst.wizards);
         } else {
           onError(xhr.status);
         }
