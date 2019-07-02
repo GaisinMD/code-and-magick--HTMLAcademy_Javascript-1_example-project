@@ -2,8 +2,15 @@
 'use strict';
 
 window.wizardChange = (function () {
+  var wizard = {
+    onColorChange: window.delay.debounce(function (colorCoat, colorEyes) {
+      var sortedWizards = window.sortModule.sortWizards(window.sortModule.wizards, colorCoat, colorEyes);
+      window.generate.generateWizards(sortedWizards);
+    })
+  };
 
   return {
+    wizard: wizard,
 
     changeColors: function (areaParrent, imageClass, inputName, colorsList, styleChange) {
       var area = areaParrent.querySelector(imageClass);
@@ -15,4 +22,5 @@ window.wizardChange = (function () {
     }
 
   };
+
 })();

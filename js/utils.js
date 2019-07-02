@@ -8,23 +8,6 @@ window.utils = (function () {
     ESC_KEYCODE: 27,
     ENTER_KEYCODE: 13,
 
-    // установка задержки
-    debounce: function (callback) {
-      var lastTimeout = null;
-      var DEBOUNCE_INTERVAL = 300; // задержка
-
-      return function () {
-        var parameters = arguments;
-        if (lastTimeout) {
-          window.clearTimeout(lastTimeout);
-        }
-        lastTimeout = window.setTimeout(function () {
-          callback.apply(null, parameters);
-        }, DEBOUNCE_INTERVAL);
-      };
-
-    },
-
     // нахождение максимального значения в массиве
     getMaxElement: function (arr) {
       var maxElement = 0;

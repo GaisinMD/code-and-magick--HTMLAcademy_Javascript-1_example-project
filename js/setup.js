@@ -48,8 +48,6 @@
   var wizardVariableStyleChange = 'fill: ';
   var fireballVariableStyleChange = 'background-color: ';
 
-  var sortedWizards;
-
   var showElement = function (element) {
     if (element.classList.contains('hidden')) {
       element.classList.remove('hidden');
@@ -107,14 +105,12 @@
 
   Wizard.COAT.addEventListener('click', function () {
     Wizard.COAT_COLOR = window.wizardChange.changeColors(setupWindow, Wizard.COAT_CLASS, Wizard.COAT_INPUT_NAME, Wizard.COAT_COLORS_LIST, wizardVariableStyleChange);
-    sortedWizards = window.sortModule.sortWizards(window.sortModule.wizards, Wizard.COAT_COLOR, Wizard.EYES_COLOR);
-    window.utils.debounce(window.generate.generateWizards)(sortedWizards);
+    window.wizardChange.wizard.onColorChange(Wizard.COAT_COLOR, Wizard.EYES_COLOR);
   });
 
   Wizard.EYES.addEventListener('click', function () {
     Wizard.EYES_COLOR = window.wizardChange.changeColors(setupWindow, Wizard.EYES_CLASS, Wizard.EYES_INPUT_NAME, Wizard.EYES_COLORS_LIST, wizardVariableStyleChange);
-    sortedWizards = window.sortModule.sortWizards(window.sortModule.wizards, Wizard.COAT_COLOR, Wizard.EYES_COLOR);
-    window.utils.debounce(window.generate.generateWizards)(sortedWizards);
+    window.wizardChange.wizard.onColorChange(Wizard.COAT_COLOR, Wizard.EYES_COLOR);
   });
 
   Wizard.FIREBALL.addEventListener('click', function () {
