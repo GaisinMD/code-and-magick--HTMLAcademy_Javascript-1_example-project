@@ -1,11 +1,14 @@
 // Выполняемые задачи: Модули загрузки и отправки данных
+// Зависимости: global-var-const.js
 
 'use strict';
 
 window.backend = (function () {
   var CODE_SUCCES = 200;
 
+
   return {
+
     load: function (url, onLoad, onError) {
       var xhr = new XMLHttpRequest();
 
@@ -13,7 +16,8 @@ window.backend = (function () {
 
       xhr.addEventListener('load', function () {
         if (xhr.status === CODE_SUCCES) {
-          onLoad(xhr.response);
+          window.globalVarConst.wizards = xhr.response;
+          onLoad(window.globalVarConst.wizards);
         } else {
           onError(xhr.status);
         }
