@@ -3,7 +3,7 @@
 
 'use strict';
 
-window.generate = (function () {
+window.viewGenerator = (function () {
   var WIZARDS_QUANTITY = 4;
 
   var setupSimilarList = document.querySelector('.setup-similar-list');

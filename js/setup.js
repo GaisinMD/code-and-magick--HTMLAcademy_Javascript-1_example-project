@@ -81,14 +81,14 @@
 
   setupOpenButton.addEventListener('click', function () {
     showPopUp(setupWindow);
-    window.backend.load(Url.GET, window.generate.generateWizards, window.utils.onErrormessage);
+    window.backend.load(Url.GET, window.viewGenerator.generateWizards, window.utils.onErrormessage);
     showElement(setupSimilar);
   });
 
   setupOpenButton.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.utils.ENTER_KEYCODE) {
       showPopUp(setupWindow);
-      window.backend.load(Url.GET, window.generate.generateWizards, window.utils.onErrormessage);
+      window.backend.load(Url.GET, window.viewGenerator.generateWizards, window.utils.onErrormessage);
       showElement(setupSimilar);
     }
   });

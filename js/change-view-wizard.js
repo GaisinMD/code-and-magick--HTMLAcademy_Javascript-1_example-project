@@ -7,7 +7,7 @@ window.wizardChange = (function () {
   var wizard = {
     onColorChange: window.delay.debounce(function (colorCoat, colorEyes) {
       var sortedWizards = window.sortModule.sortWizards(window.globalVarConst.wizards, colorCoat, colorEyes);
-      window.generate.generateWizards(sortedWizards);
+      window.viewGenerator.generateWizards(sortedWizards);
     })
   };
 
