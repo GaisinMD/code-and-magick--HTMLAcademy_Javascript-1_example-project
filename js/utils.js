@@ -4,6 +4,32 @@
 'use strict';
 
 window.utils = (function () {
+  var Rect = function (left, top, right, bottom) {
+    this.left = left;
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+  };
+
+  var Coordinate = function (x, y, constraints) {
+    this.x = x;
+    this.y = y;
+    this._constraints = constraints;
+  };
+
+  Coordinate.prototype.setX = function (x) {
+    if (x >= this._constraints.left &&
+      x <= this._constraints.right) {
+      this.x = x;
+    }
+  };
+
+  Coordinate.prototype.setY = function (y) {
+    if (y >= this._constraints.top &&
+      y <= this._constraints.bottom) {
+      this.y = y;
+    }
+  };
 
   return {
     // константа
@@ -21,12 +47,12 @@ window.utils = (function () {
 
     // перемещение окна
     moveWindow: function (evt, mainWindow, pointMove) {
+      var SHIFT_Y = 40;
+      var SHIFT_X = 364;
+
       evt.preventDefault();
 
-      var startCoords = {
-        x: evt.clientX,
-        y: evt.clientY
-      };
+      var startCoords = new Coordinate(evt.clientX, evt.clientY, new Rect(0, 0, 1200, 800));
 
       var isDragged = false;
 
@@ -34,18 +60,11 @@ window.utils = (function () {
         moveEvt.preventDefault();
         isDragged = true;
 
-        var shift = {
-          x: startCoords.x - moveEvt.clientX,
-          y: startCoords.y - moveEvt.clientY
-        };
+        startCoords.setY(moveEvt.clientY);
+        mainWindow.style.top = startCoords.y - SHIFT_Y + 'px';
 
-        startCoords = {
-          x: moveEvt.clientX,
-          y: moveEvt.clientY
-        };
-
-        mainWindow.style.top = (mainWindow.offsetTop - shift.y) + 'px';
-        mainWindow.style.left = (mainWindow.offsetLeft - shift.x) + 'px';
+        startCoords.setX(moveEvt.clientX);
+        mainWindow.style.left = startCoords.x + SHIFT_X + 'px';
       };
 
       var onMouseUp = function (upEvt) {
